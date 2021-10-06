@@ -1,10 +1,3 @@
-/**
- * Arquivo: src/app.js
- * Descrição: arquivo responsável por toda a configuração da aplicação (Back-End)
- * Data: 09/06/2019
- * Author: Glaucia Lemos
- */
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -13,13 +6,10 @@ const cors = require('cors');
 
 const app = express();
 
-// Importar o arquivo: 'database.js'
-const localDatabase = require('./config/database'); // ==> persistencia de maneira local: MongoDb
-// const databaseCosmosDb = require('./config/databaseCosmosDb'); // ==> persistencia de maneira nuvem: CosmosDb
+const localDatabase = require('./config/database');
 
 mongoose.Promise = global.Promise;
 
-// ==> Conexão com a Base de Dados:
 mongoose.connect(localDatabase.local.localUrl, { useNewUrlParser: true }).then(() => {
   console.log('A Base de dados foi conectada com sucesso!');
 }, (err) => {
@@ -27,7 +17,6 @@ mongoose.connect(localDatabase.local.localUrl, { useNewUrlParser: true }).then((
   process.exit();
 });
 
-// ==> Rotas
 const funcionarioRoute = require('./routes/funcionario.routes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
